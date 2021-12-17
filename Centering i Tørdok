@@ -1,4 +1,4 @@
-#include <AccelStepper.h>
+#include <AccelStepper.h> //Bruger AccelStepper bibliotek
 const int TrigPin1 = 53; //Erklære TrigPin for sensor 1
 const int EchoPin1 = 52; //Erklære EchoPin for sensor 1
 
@@ -50,7 +50,7 @@ int pos2 = 3600; //Erklære int pos2 til at være 3600
 int pos3 = 3600; //Erklære int pos3 til at være 3600
 int pos4 = 3600; //Erklære int pos4 til at være 3600
 
-void afstand(int x) {
+void afstand(int x) { //Funktion som kan kalde forskellige ultralyd sensor
 
   if (x == 1) { //Køre hvis x er 1
     digitalWrite(TrigPin1, LOW); //Sætter TrigPin1 low
@@ -155,60 +155,60 @@ void afstand(int x) {
   }
 }
 
-void motor(int x) {
+void motor(int x) { //Funktion som kan kalde forskellige spil
 
   if (x == 1) { //Kører hvis X er 1
-    if (stepper1.distanceToGo() == 0)
+    if (stepper1.distanceToGo() == 0) //Hvis motor1 DistanceToGo er 0
     {
-      pos1 = pos1;
-      stepper1.moveTo(pos1);
+      pos1 = pos1; //Sætter pos1 til at være pos1
+      stepper1.moveTo(pos1); //Stepper1 går til pos1
     }
-    stepper1.setSpeed(pos1);
-    stepper1.runSpeed();
+    stepper1.setSpeed(pos1); //Sætter spil2 til at være pos2
+    stepper1.runSpeed(); //Spil1 kører den sat speed
   }
 
   else if (x == 2) { //Kører hvis X er 2
-    if (stepper2.distanceToGo() == 0)
+    if (stepper2.distanceToGo() == 0) //Hvis motor2 DistanceToGo er 0
     {
-      pos2 = pos2;
-      stepper2.moveTo(pos2);
+      pos2 = pos2; //Sætter pos2 til at være pos2
+      stepper2.moveTo(pos2); //Stepper2 går til pos2
     }
-    stepper2.setSpeed(pos2);
-    stepper2.runSpeed();
+    stepper2.setSpeed(pos2); //Sætter spil2 til at være pos2
+    stepper2.runSpeed(); //Spil2 kører den sat speed
   }
   
   else if (x == 3) { //Kører hvis X er 3
-    if (stepper3.distanceToGo() == 0)
+    if (stepper3.distanceToGo() == 0) //Hvis motor3 DistanceToGo er 0
     {
-      pos3 = pos3;
-      stepper3.moveTo(pos3);
+      pos3 = pos3; //Sætter pos3 til at være pos3
+      stepper3.moveTo(pos3); //Stepper3 går til pos3
     }
-    stepper3.setSpeed(pos3);
-    stepper3.runSpeed();
+    stepper3.setSpeed(pos3); //Sætter spil3 til at være pos3
+    stepper3.runSpeed(); //Spil3 kører den sat speed
   }
   
   else if (x == 4) { //Kører hvis X er 4
-    if (stepper4.distanceToGo() == 0)
+    if (stepper4.distanceToGo() == 0) //Hvis motor4 DistanceToGo er 0
     {
-      pos4 = pos4; 
-      stepper4.moveTo(pos4);
+      pos4 = pos4; //Sætter pos4 til at være pos4 
+      stepper4.moveTo(pos4); //Stepper4 går til pos4
     }
-    stepper4.setSpeed(pos4);
-    stepper4.runSpeed();
+    stepper4.setSpeed(pos4); //Sætter spil4 til at være pos4
+    stepper4.runSpeed(); //Spil4 kører den sat speed
   }
 
 }
 
 double retAfstand(double x) { // Funktion som retter afstand ud fra hvilken sensor som kaldes
   double ret = 1.0261 * x - 0.3413; // Retter den målet afstand ud fra tendenslinje
-  return ret; //returnere den rettet afstand
+  return ret; //Returnere den rettet afstand
 }
 
-void topSet() {
-  afstand(1); // kalder funktion afstand fra sensor 1
-  afstand(2); // kalder funktion afstand fra sensor 2
-  if (retAfstand(Afstand1) < retAfstand(Afstand2) + 0.30) { //Hvis Afstand1 er større end Afstand2
-    motor(1); // spil1 kører med Uret
+void topSet() { //Funktion som kører det øverste set af ultralyd sensor
+  afstand(1); // Kalder funktion afstand fra sensor 1
+  afstand(2); // Kalder funktion afstand fra sensor 2
+  if (retAfstand(Afstand1) < retAfstand(Afstand2) + 0.30) { //Hvis Afstand2 er større end Afstand1
+    motor(1); // Spil1 kører med Uret
 
     stepper2.setSpeed(-pos2); // Sætter spil2 til at køre mod uret
     stepper2.runSpeed(); // Spil2 kører den sat speed
@@ -217,7 +217,7 @@ void topSet() {
     Serial.println("Afstand2 er større");
     Serial.println(" ");
   }
-  else if (retAfstand(Afstand2) < retAfstand(Afstand1) + 0.30) { //Hvis Afstand2 er større end Afstand1
+  else if (retAfstand(Afstand2) < retAfstand(Afstand1) + 0.30) { //Hvis Afstand1 er større end Afstand2
     motor(2); // Spil2 kører med Uret
 
     stepper1.setSpeed(-pos1); // Sætter spil1 til at køre mod uret
@@ -228,33 +228,33 @@ void topSet() {
     Serial.println(" ");
   }
 }
-void bundSet() {
-  afstand(3); // kalder funktion afstand fra sensor 3
-  afstand(4); // kalder funktion afstand fra sensor 4
-  if (retAfstand(Afstand3) < retAfstand(Afstand4) + 0.30) { //Hvis Afstand3 er større end Afstand4
-    motor(3); // spil3 kører med Uret
+void bundSet() { //Funktion som kører det laveste set af ultralyd sensor
+  afstand(3); // Kalder funktion afstand fra sensor 3
+  afstand(4); // Kalder funktion afstand fra sensor 4
+  if (retAfstand(Afstand3) < retAfstand(Afstand4) + 0.30) { //Hvis Afstand4 er større end Afstand3
+    motor(3); // Spil3 kører med Uret
 
     stepper4.setSpeed(-pos4); // Sætter spil4 til at køre mod uret
-    stepper4.runSpeed(); // spil4 kører den sat speed
+    stepper4.runSpeed(); // Spil4 kører den sat speed
 
     Serial.println(" ");
     Serial.println("Afstand3 er større");
     Serial.println(" ");
   }
-  else if (retAfstand(Afstand4) < retAfstand(Afstand3) + 0.30) { //Hvis Afstand4 er større end Afstand3
+  else if (retAfstand(Afstand4) < retAfstand(Afstand3) + 0.30) { //Hvis Afstand3 er større end Afstand4
     motor(4); // Spil4 kører med Uret
 
-    stepper3.setSpeed(-pos3); // Sætter spil3 til at køre mod uret
-    stepper3.runSpeed(); // spil3 kører den sat speed
+    stepper3.setSpeed(-pos3); //Sætter spil3 til at køre mod uret
+    stepper3.runSpeed(); //Spil3 kører den sat speed
 
     Serial.println(" ");
     Serial.println("Afstand4 er større");
     Serial.println(" ");
   }
 }
-void centerSen() {
+void centerSen() { //Funktion som checker om topset eller bundset sensor måler det sammen inde for et span
 
-  if (retAfstand(Afstand1) - retAfstand(Afstand2) < 0.30 && retAfstand(Afstand1) - retAfstand(Afstand2) > -0.30) { //Hvis de er inde for 0,50 cm af hinanden {
+  if (retAfstand(Afstand1) - retAfstand(Afstand2) < 0.30 && retAfstand(Afstand1) - retAfstand(Afstand2) > -0.30) { //Hvis retAfstand(Afstand1) - retAfstand(Afstand2 er inde for 0,30 cm af hinanden 
 
     stepper1.setSpeed(0); // Sætter spil1 til at stoppe
     stepper1.runSpeed(); // Spil1 kører den sat speed
@@ -267,7 +267,7 @@ void centerSen() {
     Serial.println(" ");
   }
 
-  else if (retAfstand(Afstand3) - retAfstand(Afstand4) < 0.30 && retAfstand(Afstand3) - retAfstand(Afstand4) > -0.30) {
+  else if (retAfstand(Afstand3) - retAfstand(Afstand4) < 0.30 && retAfstand(Afstand3) - retAfstand(Afstand4) > -0.30) { //Hvis retAfstand(Afstand3) - retAfstand(Afstand4 er inde for 0,30 cm af hinanden 
 
     stepper3.setSpeed(0); // Sætter spil3 til at stoppe
     stepper3.runSpeed(); // Spil3 kører den sat speed
@@ -281,8 +281,8 @@ void centerSen() {
   }
 }
 
-void fremSen() {
-  afstand(5); // kalder funktion afstand fra sensor 5
+void fremSen() { //Funktion som kører den sensor 5 og checker og skibet er for tæt på eller for langt væk 
+  afstand(5); // Kalder funktion afstand fra sensor 5
   if (retAfstand(Afstand5) <= 4.45) { // Hvis afstanden fra sensor 5 er tætter end 4.45 cm
 
     motor(1); // Spil1 kører med Uret
@@ -315,7 +315,7 @@ void fremSen() {
     Serial.println("For lang vaek");
     Serial.println(" ");
   }
-  else {
+  else { //Ellers
     C++; //Lægger 1 til C
     Serial.println(" ");
     Serial.println("Start tørdocking");
@@ -324,7 +324,7 @@ void fremSen() {
   }
 }
 
-void empty() {
+void empty() { //Funktion som checker om der er gået 4 minutter fra currentMillis - startMillis
   currentMillis = millis(); //Sætter currentMillis til at være millis i på det tidspunkt
   Serial.println(currentMillis - startMillis);
   if (currentMillis - startMillis <= period) { //Køre hvis at currentMillis - startMillis er mindre end 4 minutter
@@ -395,21 +395,21 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available() > 0) { //Hvis start er det sammme som startCheck
+  if (Serial.available() > 0) { //Hvis Serial.available er større end 0
     character = Serial.read(); //Sætter character til at være inputtet fra monitorren 
     start.concat(character); //Sætter inputtet fra character ind i start
   }
 
-  if (start == startCheck) { //Hvis start er det sammme som startCheck
+  if (start == startCheck) { //Hvis  teksten i er start det sammme som i startCheck
     Serial.println("Starter om 2 sekunder");
     delay(2000); // Venter i 2 sekunder
-    while (E == 0) { // kører hvis E er 0;
-      while (C == 0) { // kører hvis C er 0;
-        while (S < 2) { // kører hvis S er mindre end 2;
+    while (E == 0) { // Kører hvis E er 0;
+      while (C == 0) { // Kører hvis C er 0;
+        while (S < 2) { // Kører hvis S er mindre end 2;
           S = T + B;
-          topSet(); // kalder funktion topSet();
-          bundSet(); // kalder funktion bundSet();
-          centerSen(); // kalder funktion centerSen();
+          topSet(); // Kalder funktion topSet();
+          bundSet(); // Kalder funktion bundSet();
+          centerSen(); // Kalder funktion centerSen();
           Serial.println(" ");
           Serial.println("Centering");          
           delay(25);
